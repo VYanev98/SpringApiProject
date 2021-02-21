@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        data-th-fragment="layout"
+        xmlns:th="http://www.thymeleaf.org/"
+>
+<head>
+    <title>Sample spring application</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: centre;
+            padding: 8px;
+        }
+
+</style>
+
+</head>
+<body>
+
+<a th:href="@{/exportCSV}">Export data to CSV format</a>
+<a th:href="@{/exportJSON}">Export data to JSON format</a>
+
+
+<div th:if="${#lists.isEmpty(holidaysList)}">
+    <p class="nothing-added">There are no records in the database</p>
+</div>
+
+<div class="box">
+    <label>Table of holidays in Romania for 2021</label>
+    <div th:if="${not #lists.isEmpty(holidaysList)}">
+        <div class="scrollbar">
+            <table>
+                <tr>
+                    <th>Holiday ID</th>
+                    <th>URL</th>
+                    <th>Country</th>
+                    <th>Holiday year</th>
+                    <th>Holiday month</th>
+                    <th>Holiday day</th>
+                    <th>Holiday full datetime</th>
+                    <th>Holiday name</th>
+                    <th>Holiday description</th>
+                    <th>Holiday type</th>
+                </tr>
+                <tr th:each="holiday : ${holidaysList}">
+                    <td th:text="${holiday.id}"></td>
+                    <td>
+                        <a th:href="@{${holiday.url}}">Link to holiday</a>
+                    </td>
+                    <td th:text="${holiday.countryName}"></td>
+                    <td th:text="${holiday.dateDateTimeYear}"></td>
+                    <td th:text="${holiday.dateDateTimeMonth}"></td>
+                    <td th:text="${holiday.dateDateTimeDay}"></td>
+                    <td th:text="${holiday.dateIso}"></td>
+                    <td th:text="${holiday.nameText}"></td>
+                    <td th:text="${holiday.onelinerText}"></td>
+                    <td th:text="${holiday.types}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
